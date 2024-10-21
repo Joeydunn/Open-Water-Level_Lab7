@@ -3,7 +3,7 @@
 /******************************************************/
 
 /* 
- * Project myProject
+ * Project: myProject
  * Author: Your Name
  * Date: 
  * For comprehensive documentation and examples, please visit:
@@ -71,16 +71,15 @@ const unsigned long MAX_TIME_TO_PUBLISH_MS = 20000; // Only stay awake for this 
 // If SECONDS_BETWEEN_MEASUREMENTS < 600, must use 
 // .network(NETWORK_INTERFACE_CELLULAR, SystemSleepNetworkFlag::INACTIVE_STANDBY);
 // in sleep configuration to avoid reconnection penalty
-const unsigned long SECONDS_BETWEEN_MEASUREMENTS = 3600; // What should sampling period be?
+const unsigned long SECONDS_BETWEEN_MEASUREMENTS = 60; // What should sampling period be?
 // ***** IMPORTANT!!! See note above this const.
-
-
 void setup(void) {
   if (PUBLISHING==1) {
     Particle.connect();
   }
   else{
-    Cellular.off(); // turn off cellular for prelim testing (uncomment)
+    Particle.disconnect();
+    WiFi.off(); // turn off cellular for prelim testing (uncomment)
   }
 
   // delay(5000); // to see response from begin command
@@ -146,7 +145,7 @@ void loop(void) {
     // Print out data buffer
     Log.info(data);
 
-    // Start SD stuff
+    // Start SD stuff 
     File myFile;
 
     // Initialize the library
